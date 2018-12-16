@@ -1,0 +1,222 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="invoice.css" />
+<link href="https://fonts.googleapis.com/css?family=Exo+2|Oxygen" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<script type="text/javascript" src="resource.js"></script>
+
+<div id="Buttons">
+	<div>Save
+		<div id="save_menu_options">
+			<a href="#">Add To Database</a>
+			<a href="#" onclick="invoice.save_png()">Save PNG</a>
+			<a href="#" onclick="invoice.save_pdf()">Save PDF</a>
+		</div>
+	</div><div>Options
+		<div id="option_menu_options">
+			<a href="#" onclick="document.getElementById('id01').style.display='block'">Open Settings</a>
+			<a href="#" onclick="invoice.showAllSavedInvoice()">All Saved Invoice</a>
+		</div>
+	</div>
+</div>
+
+<div id="main">
+	<fieldset class="f f1">
+		<legend>Tender information</legend>
+		<table class="main_input_containing_tables">
+			<tr><td>PO Number</td><td><input type="text" class="main_content po_nu" /> </td></tr>
+			<tr><td>PO Date</td><td><input type="date" class="main_content po_date" /></td></tr>
+			<tr><td>Vender Code</td><td><input type="text" class="main_content vender_code" /></td></tr>
+		</table>
+	</fieldset>
+	<fieldset class="f f2">
+		<legend>Information Of Seller</legend>
+		<table class="main_input_containing_tables">
+			<tr><td>Reserve Charge</td><td><input type="number" class="main_content reserve_charge" /></td></tr>
+			<tr><td>Invoice Number*</td><td><input type="text" class="main_content  inv_no" /></td></tr>
+			<tr><td>Invoice Date*</td><td><input type="date" class="main_content invoice_date" /></td></tr>
+			<tr><td>State</td><td><input list="states" type="text" class="main_content main_state" onchange="invoice.change_state_code_field(this)" /></td></tr>
+			<tr><td>State Code</td><td><input type="number" class="main_content main_state_code" /></td></tr>
+		</table>
+	</fieldset>
+	<fieldset class="f f3">
+		<legend>Details of Delivery</legend>
+		<table class="main_input_containing_tables">
+			<tr><td>Transport Mode</td><td><input type="text" class="main_content trans_mode" /></td></tr>
+			<tr><td>Vehicle Number</td><td><input type="text" class="main_content vehicle_no" /></td></tr>
+			<tr><td>Date of Supply</td><td><input type="date" class="main_content date_of_supply" />  <!-- date of supply --></td></tr>
+			<tr><td>Place of Supply*</td><td><input type="text" class="main_content place_of_supply" /> <!--place of supply --></td></tr>
+		</table>
+	</fieldset>
+	<div class="for_desk_top fd1">
+		<fieldset class="f f4">
+			<legend>Billed To</legend>
+			<table class="main_input_containing_tables">
+				<tr><td>Name*</td><td><input type="text" class="main_content bt_name" /></td></tr>
+				<tr><td>Address</td><td><input type="text" class="main_content bt_addr" /></td></tr>
+				<tr><td>GSTIN</td><td><input type="text" class="main_content bt_gstin" /></td></tr>
+				<tr><td>State*</td><td><input list="states" type="text" class="main_content bt_state" onchange="invoice.change_state_code_field(this)"/></td></tr>
+				<tr><td>State Code</td><td><input type="number" class="main_content bt_state_code"  /></td></tr>
+			</table>
+		</fieldset>
+		<fieldset class="f f5">
+			<legend>Shipped To</legend>
+			<table class="main_input_containing_tables">
+				<tr><td>Name*</td><td><input type="text" class="main_content st_name" /></td></tr>
+				<tr><td>Address</td><td><input type="text" class="main_content st_addr" /></td></tr>
+				<tr><td>GSTIN</td><td><input type="text" class="main_content st_gstin" /></td></tr>
+				<tr><td>State*</td><td><input list="states" type="text" class="main_content st_state" onchange="invoice.change_state_code_field(this)" /></td></tr>
+				<tr><td>State Code</td><td><input type="number" class="main_content st_state_code" /></td></tr>
+			</table>
+		</fieldset>
+	</div>
+	<br/>
+	<div class="for_desk_top fd2">
+		<div id="f6_f7_warper">
+			<fieldset class="f f6">
+				<legend>Item Description</legend>
+				<table class="main_input_containing_tables">
+					<tr><td>Item Description*</td><td><textarea class="main_content item_desc" style="height: 300px; text-align: left;"></textarea></td></tr>
+					<tr><td>HSNACS</td><td><input type="text" class="main_content hsnacs" /></td></tr>
+					<tr><td>UOM</td><td><input type="text" class="main_content uom" /></td></tr>
+					<tr><td>QTY*</td><td><input type="number" class="main_content qty" /></td></tr>
+					<tr><td>Rate*</td><td><input type="number" class="main_content rate" /></td></tr>
+					<tr><td>Less Discount</td><td><input type="number" class="main_content less_discount" /></td></tr>
+					<tr><td>Freight</td><td><input type="number" class="main_content freight" /></td></tr>
+					<tr><td>CGST (%)</td><td><input type="number" class="main_content cgst_rate" /></td></tr>
+					<tr><td>SGST (%)</td><td><input type="number" class="main_content sgst_rate" /></td></tr>
+					<tr><td>IGST (%)</td><td><input type="number" class="main_content igst_rate" /></td></tr>
+					<tr><td>GST On Reserved Charges</td><td><input type="number" class="main_content gst_rc" /></td></tr>
+				</table>
+			</fieldset >
+			<fieldset class="f f7">
+				<legend>Account Information</legend>
+				<table class="main_input_containing_tables">
+					<tr><td>Account Number </td><td><input type="number" class="main_content acc_no" /></td></tr>
+					<tr><td>IFSC Code</td><td><input type="text" class="main_content ifsc" /></td></tr>
+					<tr><td>Bank Name</td><td><input type="text" class="main_content bank_name" /></td></tr>
+				</table>
+			</fieldset>
+		</div>
+		<fieldset class="f f8">
+			<legend>Credentials Information</legend>
+			<table class="main_input_containing_tables">
+				<tr><td>Terms And Conditions</td><td><textarea class="main_content tnc"></textarea></td></tr>
+				<tr><td>Common Seal</td><td><input type="file" class="main_content common_seal" /></tr></tr>
+				<tr><td>Authorized Signature</td><td><input type="file" class="main_content auth_sig" /></td></tr>
+				<tr><td>Preview of common seal</td><td><img class="img_prev common_seal_prev" style="width: 100%" /></td></tr>
+				<tr><td>Preview of authorised signature</td><td><img class="img_prev auth_sig_prev" style="width: 100%" /></td></tr>
+			</table>
+		</fieldset>
+	</div>
+
+<button id="open_modal" hidden="true">Open Modal</button>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>All Invoice Saved</h2>
+    </div>
+    <div class="modal-body">
+      <div id="model_cntent_holder"></div>
+    </div>
+  </div>
+
+</div>
+	<div id="id01">
+		<div id="form_container">
+			<div class="form_ele_warper head_warper">
+				<h1 style="margin: 0px; text-align: center;">Font Settings</h1>
+			</div>
+			<div class="form_ele_warper body_warper">
+				<br/>
+				<br/>
+				<label><b>Font Family</b></label><br/>
+				<input type="text" list="fonts" />
+				<br/><br/>
+				<label><b>Font Style</b></label><br/>
+				<select>
+					<option value="normal">Normal</option>
+					<option value="italic">Italic</option>
+					<option value="bold">Bold</option>
+					<option value="small-caps">Samll Caps</option>
+					<option value="bi">Bold and Italic</option>
+					<option value="bs">Bold and small Caps</option>
+					<option value="is">Italic and small Caps</option>
+					<option value="bis">Bold, Italic and small caps</option>
+				</select>
+				<br/><br/>
+				<label><b>Font Size</b></label><br/>
+				<input type="number" />
+				<br/><br/>
+				<label>Strict Mode</label><br /><br/>
+				<div id="slider_widgit">
+					<div><h5>ON</h5></div>
+					<div id="on_off_button" onclick="handle_slide(this)">
+						<div id="_on_off_slider"></div>
+					</div>
+					<div><h5>OFF</h5></div>
+				</div>
+				<br/>
+			</div>
+			<div class="form_ele_warper footer_warper">
+				<button onclick="invoice.change_settings()">Ok</button>
+				<button onclick="document.getElementById('id01').style.display='none'">Cancle</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<datalist id="states">
+	<option value="ANDAMAN AND NICOBAR ISLANDS"></option>
+	<option value="ANDHRA PRADESH"></option>
+	<option value="ARUNACHAL PRADESH"></option>
+	<option value="ASSAM"></option>
+	<option value="BIHAR"></option>
+	<option value="CHANDIGARH"></option>
+	<option value="CHATTISGARH"></option>
+	<option value="DADRA AND NAGAR HAVELI "></option>
+	<option value="DAMAN AND DIU"></option>
+	<option value="DELHI"></option>
+	<option value="GOA"></option>
+	<option value="GUJARAT"></option>
+	<option value="HARYANA"></option>
+	<option value="HIMACHAL PRADESH"></option>
+	<option value="JAMMU AND KASHMIR"></option>
+	<option value="JHARKHAND"></option>
+	<option value="KARNATAKA"></option>
+	<option value="KERALA"></option>
+	<option value="LAKSHWADEEP"></option>
+	<option value="MADHYA PRADESH"></option>
+	<option value="MAHARASHTRA"></option>
+	<option value="MANIPUR"></option>
+	<option value="MEGHLAYA"></option>
+	<option value="MIZORAM"></option>
+	<option value="NAGALAND"></option>
+	<option value="ODISHA"></option>
+	<option value="PUDUCHERRY"></option>
+	<option value="PUNJAB"></option>
+	<option value="RAJASTHAN"></option>
+	<option value="SIKKIM"></option>
+	<option value="TAMIL NADU"></option>
+	<option value="TELANGANA"></option>
+	<option value="TRIPURA"></option>
+	<option value="UTTAR  PRADESH"></option>
+	<option value="UTTARAKHAND"></option>
+	<option value="WEST BENGAL"></option>
+</datalist>
+<datalist id="fonts">
+	<option disabled> not an Exhaustive List</option>
+	<option value="cursive"></option>
+	<option value="fantasy"></option>
+	<option value="monospace"></option>
+	<option value="sans-serif"></option>
+	<option value="serif"></option>
+	<option value="arial"></option>
+</datalist>
+<script type="text/javascript" src="invoice_ui.js"></script>
+<script type="text/javascript" src="invoice.js"></script>
