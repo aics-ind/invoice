@@ -1,0 +1,322 @@
+body{
+	font-family:'Exo 2', sans-serif;
+}
+.main_content{
+	background-color: #ddd;
+	border:0px;
+	margin-top: 5px;
+	outline: 0px;
+	height: 35px;
+	width:100%;
+	text-align: center;
+}
+
+.itm_desc, .tnc{
+	height: 300px;
+	text-align: left;
+}
+
+table{
+	width: 100%;
+}
+.main_input_containing_tables{
+	border-collapse: collapse;
+}
+.main_input_containing_tables>tbody>tr{
+	border-bottom: 1px solid #000;
+} 
+
+.main_input_containing_tables>tbody>tr>td:first-child{
+	width: 50%;
+}
+
+#Buttons{
+	font-family: 'Oxygen', sans-serif;
+	position: fixed;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	background: rgb(255, 57, 57) ;
+	z-index: 1;
+}
+#Buttons > div {
+	display: inline-block;
+	text-decoration: none;
+	font-weight: bold;
+	color:#fff;
+	text-align: center;
+	width: 50%;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-family: 'Oxygen', sans-serif;;
+	cursor: pointer;
+}
+
+#Buttons > div:hover > #save_menu_options,
+#Buttons > div:hover > #option_menu_options {
+	font-family: 'Oxygen', sans-serif;
+	font-size: 15px;
+	display: block;
+	animation-name: drop_down_menu;
+	animation-duration: 0.5s;
+}
+
+@keyframes drop_down_menu{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+} 
+
+#Buttons > div:hover {
+	background-color: crimson;
+}
+
+.f1{
+	margin-top: 41px;
+}
+
+fieldset{
+	margin-top: 10px;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+table > tbody > tr : nth-child(even){
+	background-color: whitesmoke;
+}
+
+#save_menu_options,
+#option_menu_options {
+	display: none;
+	background-color: crimson;
+	position: absolute;
+	width: inherit;
+}
+#save_menu_options>a,
+#option_menu_options>a{
+	display: block;
+	padding:10px;
+	text-decoration: none;
+	color:white;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+#save_menu_options>a:hover,
+#option_menu_options>a:hover{
+	background-color: rgb(255, 57, 57);
+}
+
+#all_saved_invoice_table{
+	text-align: center;
+	vertical-align: middle;
+	border-collapse: collapse;
+	width:1000px;
+}
+
+#all_saved_invoice_table>tr{
+	border-bottom: 1px solid black;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#all_saved_invoice_table>tr:nth-child(odd){
+	background-color: whitesmoke;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+#model_cntent_holder{
+	overflow-x: auto;
+	
+}
+.modal-content {
+	color: black;
+    position: relative;
+    background-color: white;
+    padding: 0;
+    border: 1px solid #888;
+    width: 100%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {transform: scaleY(0);}
+    to {transform: scaleY(1);}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-family: arial;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #ccc;
+    color: black;
+    text-align: center;
+}
+
+.modal-body {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.modal-footer {
+	text-align: center;
+    padding: 2px 16px;
+    background-color: #ccc;
+    color: black;
+}
+
+/*settings menu modal box*/
+
+#id01{
+	display: none;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	top:0px;
+	left:0px;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#form_container{
+	min-width: 100%;
+	width: 400px;
+	background-color: white;
+	margin:  5% auto 15% auto;
+	animation: animateZoom 0.6s;
+	border: 3px solid #ccc;
+}
+
+@keyframes animateZoom 
+{
+	from{
+		transform: scale(0);
+	}
+	to{
+		transform: scale(1);
+	}
+}
+
+.head_warper{
+	padding: 10px 0px 10px 0px;
+	background-color: #ccc;
+}
+
+.footer_warper{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #ccc;
+}
+
+.footer_warper>button{
+	outline: 0px;
+    border: 1px solid black;
+    background-color: #676565;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    width: 100px;
+    margin: auto;
+}
+
+.body_warper{
+	text-align: center;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 10px;
+}
+.body_warper>input, select, option{
+	background-color: #ddd;
+	border:0px;
+	margin-top: 5px;
+	outline: 0px;
+	height: 35px;
+	width:350px;
+	text-align: center;
+}
+
+#on_off_button{
+    width: 50px;
+    height: 20px;
+    background-color: crimson;
+    margin: auto;
+}
+
+#_on_off_slider{
+	width: 20px;
+    height: inherit;
+    background-color: white;
+    opacity: 0.5;
+}
+#slider_widgit>div{
+	display: inline-block;
+	margin-left: 5px;
+}
+#slider_widgit>div>h5{
+	margin: 0px;
+	font-size: 20px;
+}
+@media only screen and (min-width: 800px){
+	.for_desk_top{
+		display: inline-flex;
+		width: 100%;
+	}
+	.for_desk_top>*{
+		width: 50%;
+	}
+	#all_saved_invoice_table{
+		width:100%;
+	}
+}
