@@ -66,6 +66,9 @@ table{
 	animation-name: drop_down_menu;
 	animation-duration: 0.5s;
 }
+/*#Buttons > div > #save_menu_options > a >span{
+
+}*/
 
 @keyframes drop_down_menu{
 	from{
@@ -112,9 +115,34 @@ table > tbody > tr : nth-child(even){
 	font-weight: bold;
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+#option_menu_options>a{
 	text-align: center;
 }
-#save_menu_options>a:hover,
+#save_menu_options>a{
+	text-align: left;
+}
+.save_menu_options_div{
+	display: block;
+	width: 95%;
+    text-align: center;
+    border: 2px solid #fff;
+    padding: 5px;
+	margin-left: -3px;
+	margin-top:5px;
+}
+.save_menu_options_div_txt{
+	border: 0px;
+}
+.save_menu_options_div_inv{
+	left:30%;
+}
+.save_menu_options_div_inv:hover, .save_menu_options_div_chll:hover{
+	background:  rgb(255, 57, 57);
+}
+.save_menu_options_div_chll{
+	right: 20%;
+}
 #option_menu_options>a:hover{
 	background-color: rgb(255, 57, 57);
 }
@@ -329,5 +357,9 @@ table > tbody > tr : nth-child(even){
 		width:60%;
 		left: 20%;
 	}
-	
+	.save_menu_options_div{
+		width: 25%;
+		margin-left: 8px;
+		display: inline-block;
+	}	
 }

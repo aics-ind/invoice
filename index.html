@@ -1,18 +1,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INVOICE-aics</title>
+<script type="text/javascript" src="global_vars.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
 <link rel="stylesheet" type="text/css" href="invoice.css" />
 <link href="https://fonts.googleapis.com/css?family=Exo+2|Oxygen" rel="stylesheet">
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 <script type="text/javascript" src="resource.js"></script>
-<script type="text/javascript" src="global_vars.js"></script>
+<script type="text/javascript" src="helpr_func.js"></script>
 
 <div id="Buttons">
 	<div>Save
 		<div id="save_menu_options">
-			<a href="#">To Database</a>
-			<a href="#" onclick="invoice.save_png()">Save PNG</a>
-			<a href="#" onclick="invoice.save_pdf()">Save PDF</a>
+			<a href="#"><div class="save_menu_options_div save_menu_options_div_txt">To Database</div><div onclick="invoice.save_internal()" class="save_menu_options_div save_menu_options_div_op save_menu_options_div_inv">invoice</div> <div class="save_menu_options_div save_menu_options_div_op save_menu_options_div_chll">challan</div></a>
+			<a href="#"><div class="save_menu_options_div save_menu_options_div_txt">Save PNG</div><div onclick="invoice.save_png()" class="save_menu_options_div save_menu_options_div_op save_menu_options_div_inv">invoice</div> <div class="save_menu_options_div save_menu_options_div_op save_menu_options_div_chll">challan</div></a> 
+			<a href="#"><div class="save_menu_options_div save_menu_options_div_txt">Save PDF</div><div onclick="invoice.save_pdf()" class="save_menu_options_div save_menu_options_div_op save_menu_options_div_inv">invoice</div> <div class="save_menu_options_div save_menu_options_div_op save_menu_options_div_chll">challan</div></a>
 		</div>
 	</div><div>Options
 		<div id="option_menu_options">
@@ -222,3 +225,4 @@
 </datalist>
 <script type="text/javascript" src="invoice_ui.js"></script>
 <script type="text/javascript" src="invoice.js"></script>
+<script type="text/javascript" src="challan.js"></script>

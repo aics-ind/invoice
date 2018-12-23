@@ -1,9 +1,3 @@
-window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || { READ_WRITE: "readwrite" }; // This line should only be needed if it is needed to support the object's constants for older browsers
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
-if (!window.indexedDB) {
-	window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
-}
 var invoice = {
 	strict: true,
 	file_from_data: false,
@@ -23,59 +17,6 @@ var invoice = {
 				}
 			};
 		};
-
-		if (!indexedDB) {
-			alert("To use Save option please use browser which supports indexedDB completely.");
-			_("#save_menu_options")[0].children[0].setAttribute("onclick", "alert('To use Save option please use browser which supports indexedDB completely.')");
-		} else {
-			let req = indexedDB.open("AICS", 1);
-			req.onsuccess = function (e) {
-				invoice.db = e.target.result;
-
-				let tx = invoice.db
-					.transaction("settings", 'readonly');
-				tx.onsuccess = e => {
-					let get_req = tx.objectStore("settings")
-						.get(invoice_settings_objectstore_index); // this variable is store in global_vars.js
-					get_req.onsuccess = function (e) {
-						invoice.writing_options_defaults = e.target.result;
-					};
-					get_req.onerror = function (e) {
-						console.log("saved invoice settings couldn't be retrived");
-					}
-				};
-
-				console.log("AICS database opened successfully");
-				_("#save_menu_options")[0].children[0].setAttribute("onclick", "invoice.save_internal()");
-			};
-			req.onerror = function () {
-				alert("Error opening the datatbase");
-				console.log("Error opening AICS");
-			};
-			req.onupgradeneeded = function (event) {
-
-				invoice.writing_options_defaults = {
-					'font-family': 'sans-serif',
-					'font-size': '46px',
-					'font-weight': 'normal', // other one is bold
-					'font-style': 'normal', // other one is italic 
-					'font-variant': 'normal' // other one is small-caps
-				};
-
-				invoice.db = event.target.result;
-				let store_invoice = invoice.db.createObjectStore('invoice', { keyPath: 'inv_no' }),
-					store_settings = invoice.db.createObjectStore("settings", { autoIncrement: true });
-
-				store_settings.put(invoice.writing_options_defaults, 0);
-				store_invoice.createIndex('inv_no', 'inv_no', { unique: 'true' });
-				store_invoice.createIndex('invoice_date', 'invoice_date');
-				store_invoice.createIndex('place_of_supply', 'place_of_supply');
-				store_invoice.createIndex('bt_name', 'bt_name');
-				store_invoice.createIndex('bt_state', 'bt_state');
-				store_invoice.createIndex('st_name', 'st_name');
-				store_invoice.createIndex('st_state', 'st_state');
-			};
-		}
 	},
 
 	change_settings: () => {
@@ -662,65 +603,3 @@ window.onload = function () {
 		};
 	}
 };
-function ntow(num) {
-	if (typeof num !== 'number') throw 'not a number';
-	n = parseInt(num);
-	m = (num - n).toFixed(2) * 100; // now m will be exactly 2 number wide
-	keys = []; // this variables will contanins words like twenty one , fourty four etc.
-	res = ''; // resulting string 
-	// defining some words
-	var a = [
-		'', 'one', 'two', 'three', 'four', 'five', 'six',
-		'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen',
-		'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'ninteen'
-	];
-	var b = [
-		'', 'twenty', 'thirty', 'fourty', 'fiftey',
-		'sixtey', 'seventy', 'eighty', 'ninety'
-	];
-	var c = [
-		'thousands', 'lakhs', 'crores'
-	]
-
-	function getTwoDigitsString(nn) {
-		let d = nn % 100;
-		if (a[d] == undefined)
-			return (b[(d - d % 10) / 10 - 1] + ' ' + a[d % 10]);
-		else return (a[d]);
-	}
-
-	/**
-	 * first convert to paisa 
-	 */
-	keys.push("paisa only");
-	keys.push(getTwoDigitsString(m) === '' ? 'zero' : getTwoDigitsString(m));
-	keys.push('and');
-
-	/**
-	 * now intreprete last 3 digits
-	 */
-
-	keys.push(getTwoDigitsString(n));
-	if ((n = parseInt(n / 100), n) !== 0) {
-		keys.push('hundred');
-		keys.push(getTwoDigitsString(n % 10));
-		n = parseInt(n / 10);
-	}
-	// now intreprete further 
-	for (let i = 0; ; i++) {
-		keys.push(c[i % 3]);
-		keys.push(getTwoDigitsString(n));
-		if ((n = parseInt(n / 100), n) === 0) break;
-	}
-	keys.push('Rupees');
-
-	for (let i = keys.length - 1; i >= 0; i--) res += keys[i] + ' ';
-	return res;
-}
-
-function ObjectToString(obj) {
-	var str = '{';
-	for (key in obj) str += String(key) + ':' + String(obj[key]) + ',';
-	str[str.length - 1] = '}';// replace the last comma with }
-	return str;
-}
