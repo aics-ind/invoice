@@ -1,6 +1,12 @@
 body{
 	font-family:'Exo 2', sans-serif;
+	background-color: #ccc;
 }
+#main{
+	width:100%;
+	left:0px;
+}
+
 .main_content{
 	background-color: #ddd;
 	border:0px;
@@ -319,4 +325,9 @@ table > tbody > tr : nth-child(even){
 	#all_saved_invoice_table{
 		width:100%;
 	}
+	#main, #Buttons{
+		width:60%;
+		left: 20%;
+	}
+	
 }

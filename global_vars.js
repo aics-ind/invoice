@@ -1,0 +1,1 @@
+const invoice_settings_objectstore_index = 0;
