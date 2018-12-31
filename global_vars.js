@@ -1,3 +1,4 @@
+const db_version = 1;
 const inv_objstore_name = 'invoice';
 const chl_objstore_name = "challan";
 const sttng_objstore_name = 'settings';

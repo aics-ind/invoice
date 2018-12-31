@@ -3,6 +3,8 @@ var invoice = {
 	file_from_data: false,
 	data: {},
 	_onload: function () {
+		this.db = db;
+		this.writing_options_defaults = settings.invoice;
 		document.querySelector('.acc_no').value = '507801010036044';
 		document.querySelector('.ifsc').value = 'UBIN0550787';
 		document.querySelector('.bank_name').value = 'Union Bank Of India';
